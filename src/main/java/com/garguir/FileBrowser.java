@@ -21,11 +21,15 @@ public class FileBrowser {
     private static final String LINE_MIDDLE =      "---------------------------------------------------------------------------------------------------";
     File filesRoute;
 
-    public FileBrowser(String route) {
-        this.filesRoute = new File(route);
+    public FileBrowser() {
+
     }
 
-    public void listFiles(String path) throws IOException {
+    public void execute() throws IOException {
+        listFiles(PATH_XML_FILES);
+    }
+
+    private void listFiles(String path) throws IOException {
         File file = new File(path);
         if (file.exists()) {
             File[] files = file.listFiles();
@@ -53,7 +57,7 @@ public class FileBrowser {
         }
     }
 
-    private static String convertXmlToString(File xmlFile) throws IOException {
+    private String convertXmlToString(File xmlFile) throws IOException {
         Scanner scanner = new Scanner(xmlFile.getAbsoluteFile());
         StringBuilder xmlString = new StringBuilder();
         while(scanner.hasNextLine()){
@@ -62,7 +66,7 @@ public class FileBrowser {
         return xmlString.toString();
     }
 
-    private static void createDir(File file){
+    private void createDir(File file){
         File newDir = new File(PATH_JSON_FILES + file.getParent().replace(PATH_XML_FILES, "") + "\\"+file.getName());
         if(!newDir.exists()){
             if(!newDir.mkdir()){
